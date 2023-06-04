@@ -1,0 +1,38 @@
+﻿input.Total {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-image: linear-gradient(to bottom right, yellow, red);
+    color: black;
+    font-weight: bold;
+    width: 100px;
+    height: 50px;
+    float: right;
+}
+body {
+    background-color:#808080;
+}
+div.Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+div.List, div.Total {
+    flex: 1;
+    border: 2px solid black;
+    margin: 10px;
+    background-color:white;
+}
+div.Total {
+    justify-content: center;
+    align-items: center;
+}
+table.List {
+    
+}
+td.Total {
+    text-align: center;
+    width: 200px;
+}

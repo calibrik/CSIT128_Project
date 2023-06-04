@@ -1,13 +1,13 @@
 {
   "courses": [
     {
-      "picture": "placeholder-image.png",
+      "picture": "AI.png",
       "name": "AI",
       "price": 199,
       "description": "Course will help you to learn AI"
     },
     {
-      "picture": "placeholder-image.png",
+      "picture": "Python.png",
       "name": "Python",
       "price": 300,
       "description": "Course will help you to learn and develop on Python"
@@ -15,7 +15,7 @@
     {
       "picture": "placeholder-image.png",
       "name": "HTML",
-      "price": 101,
+      "price": 102,
       "description": "Course will help you to learn how to make sites with HTML"
     },
     {
