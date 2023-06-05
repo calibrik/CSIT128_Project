@@ -3,37 +3,45 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="basket.css" />
+    <script defer src="basket.js"></script>
     <meta charset="utf-8" />
     <title>Basket</title>
 </head>
 <body>
+    <div class="Headline">
+        <a class="Headline" href="listCourses.html">Categories</a><a class="Headline" href="listCourses.html">Profile</a> <a class="Headline" href="basketPage.html">Basket</a>
+    </div>
     <div class="Content">
-    <form action="">
-        <div class="List">
-            <table class="List" border="1">
+
+        <table class="List">
+            <tr>
+                <td class="ItemImage"><img width="100" height="100" src="AI.png" /></td>
+                <td class="ItemName">AI course</td>
+                <td class="ItemPrice">199AED</td>
+            </tr>
+            <tr>
+                <td class="ItemImage"><img width="100" height="100" src="Python.png" /></td>
+                <td class="ItemName">Python course</td>
+                <td class="ItemPrice">300AED</td>
+            </tr>
+            <tr>
+                <td class="ItemImage"><img width="100" height="100" src="placeholder-image.png" /></td>
+                <td class="ItemName">HTML course</td>
+                <td class="ItemPrice">102AED</td>
+            </tr>
+        </table>
+        <hr />
+        <form action="" onsubmit="onSubmit(this)">
+            <table class="Total">
                 <tr>
-                    <td><img width="100" height="100" src="AI.png" /></td>
-                    <td>AI course</td>
-                    <td>199AED</td>
+                    <td colspan="3" id="total" class="Total"></td>
                 </tr>
                 <tr>
-                    <td><img width="100" height="100" src="Python.png" /></td>
-                    <td>Python course</td>
-                    <td>300AED</td>
+                    <input type="hidden" name="total" id="totalPrice" value="0" />
+                    <td><input class="Buy" type="submit" value="Buy" /></td>
                 </tr>
             </table>
-        </div>
-        <div class="Total">
-            <table border="1" class="Total">
-                <tr>
-                    <td colspan="3" class="Total">Total: 499AED</td>
-                </tr>
-                <tr>
-                    <td><input class="Total" type="submit" value="Buy" /></td>
-                </tr>
-            </table>
-        </div>
-     </form>
-        </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -4,15 +4,20 @@
     <link rel="stylesheet" href="listCourses.css" />
     <meta charset="utf-8" />
     <title>Courses</title>
-    <script async src="listCourses.js"></script>
+    <script defer src="listCourses.js"></script>
 </head>
 <body>
+    <div class="Headline">
+        <a class="Headline" href="listCourses.html">Categories</a><a class="Headline" href="listCourses.html">Profile</a> <a class="Headline" href="basketPage.html">Basket</a>
+    </div>
     <form id="test" onsubmit="onSubmit(this)" action="listCourses.html" method="get">
-        <table id="forJSON" border="1">
-        </table>
-        <input type="submit" value="Add to basket" />
-        <h2 id="descriptionH"></h2>
-        <p id="descriptionP"></p>
+        <div class="Content">
+            <table id="forJSON" class="Content">
+            </table>
+            <input type="submit" class="Buy" value="Add to basket" />
+            <div class="Description" id="description">   
+            </div>
+        </div>
     </form>
 </body>
 </html>

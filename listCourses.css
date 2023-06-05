@@ -1,3 +1,61 @@
 ﻿p {
-    font-size:medium
+    font-size: 20px;
+}
+html,body{
+    height:100%;
+}
+body {
+    background-color: lightblue;
+}
+div.Headline {
+    background-color: #d5d5d5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+a.Headline{
+    text-align:center;
+    color:#009ff3;
+    margin: 10px 30px 10px 30px;
+}
+div.Content {
+    border:2px solid black;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width:90%;
+    height:1000px;
+}
+table.Content {
+    align-items: center;
+    background-color: white;
+    border-color: black;
+    padding: 10px;
+    width: 100%;
+    height:40%;
+}
+input.Buy:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    box-shadow: 0 10px 6px rgba(0, 0, 0, 0.2);
+}
+input.Buy{
+    position:absolute;
+    right:10%;
+    background-color:red;
+    color:white;
+    width:100px;
+    height:40px;
+    font-weight:bold;
+    font-size:13px;
+    border-radius:30px;
+}
+div.Description{
+   margin-right:15px;
+   margin-left:15px;
+}
+td{
+    text-align:center;
+    border-bottom:1px solid black;
 }
