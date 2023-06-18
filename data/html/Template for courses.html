@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="listCourses.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="/Main/onlineCourse.html" class="logo">Course Craft</a>
+        <nav class="navigation">
+            <a href="/Main/onlineCourse.html">Categories</a>
+            <a href="/Main/onlineCourse.html">Courses</a>
+            <a href="/Main/onlineCourse.html">About Us</a>
+            <a href="/Main/onlineCourse.html">Contact</a>
+        </nav>
+        <div class="icons">
+            <a href="/profile/profile.html"><i class="fa-solid fa-user"></i></a>
+            <a href="#"><i class="fa-solid fa-heart"></i></a>
+            <a href="basketPage.html"><i class="fa-solid fa-cart-shopping"></i></a>
+
+        </div>
+    </header>
+
+    <main class="content">
+        <h1 id="pageName"></h1>
+        <form id="test" onsubmit="return onSubmit(this)" action="/addToBasket" method="post">
+            <div id="courseList" class="course-list"></div>
+            <input type="hidden" name="fileName" value="" id="fileName" />
+            <input type="submit" class="buy-button" value="Add to basket" />
+        </form>
+        <div class="description" id="description"></div>
+    </main>
+
+    <script src="listCourses.js"></script>
+    <script>
+        loadPage( INSERT_FILE_NAME );
+    </script>
+</body>
+</html>

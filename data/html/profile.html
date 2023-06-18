@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="profile-style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="/Main/onlineCourse2.html" class="logo">Course Craft</a>
+        <nav class="navigation">
+            <a href="/Main/onlineCourse2.html">Categories</a>
+            <a href="/Main/onlineCourse2.html">Courses</a>
+            <a href="/Main/onlineCourse2.html">About Us</a> 
+            <a href="/Main/onlineCourse2.html">Contact</a>
+        </nav>
+        <div class="icons">
+            <a href="listCourses.html"><i class="fa-solid fa-user"></i></a>
+            <a href="#"><i class="fa-solid fa-heart"></i></a>
+            <a href="/baskett/basketPage.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            
+        </div>
+    </header>
+
+  <main class="content">
+    <h1>Profile</h1>
+    <div class="profile">
+      <div class="profile-info">
+        <h2>John Doe</h2>
+        <p>Email: johndoe@example.com</p>
+        <p>Location: New York</p>
+        <p>Phone: 123-456-7890</p>
+        <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+      </div>
+    </div>
+
+    <div class="account-settings">
+      <h2>Account Settings</h2>
+      <form id="profile-form" onsubmit="saveProfile(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="John Doe" disabled>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="johndoe@example.com" disabled>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="New York" disabled>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" value="123-456-7890" disabled>
+        <button type="submit" id="save-button" class="save-button" disabled>Save Changes</button>
+        <button type="button" id="cancel-button" class="cancel-button" onclick="cancelEdit()">Cancel</button>
+      </form>
+    </div>
+
+    <script src="profile.js"></script>
+  </main>
+</body>
+</html>

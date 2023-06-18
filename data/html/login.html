@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log In</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="log_in.css">
+    <script src="log_in.js"></script>
+</head>
+<body>
+    
+    <div class="form">
+        <div class="text">
+            login
+        </div>
+
+        <form id="log_in" method="post" onSubmit="return validateForm()">
+            <!-- <img id ="image" src="login_img.png"> -->
+            <div class="f_field">
+                <label for="">Email</label>
+                <input type="text" name="email" id="email" size="40" placeholder="Ex.: your@email.com" required onchange="return emailValidation()">
+                <span id="fieldError" class="Error"></span>
+            </div>
+            <br>
+            <div class="f_field">
+                <label for="">Password</label>
+                <input type="password" name="password" id="password" size="40" placeholder="**********" required onchange="return passwordValidation()">
+                <span id="fieldError2" class="Error"></span>
+            </div>
+            
+            <div class="btn">
+                <button type="submit"> <a href="/Main/onlineCourse2.html">Login</a></button>
+            </div>
+        </form><br>
+        <div class="registerL">
+            <span id="txt1">Don&apos;t have an account yet?</span>
+            <a id="txt1L" href="register.html">Register</a>
+        </div>
+    </div>
+    <br>
+    
+</body>
+</html>

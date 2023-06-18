@@ -1,0 +1,35 @@
+{
+  "name": "Architecture Courses",
+  "courses": {
+    "Realistic Architectural 3D Modeling": {
+      "price": 199,
+      "picture": "DigitalArch.png",
+      "description": "The Realistic Architectural 3D Modeling course provides students with the skills and techniques necessary to create stunning and lifelike 3D models of architectural designs. <br /><br />In this course, you will learn:<br />- The fundamentals of 3D modeling<br />- Architectural modeling techniques<br />- Texturing and materials<br />- Lighting and rendering<br />- Creating realistic environments<br /><br />By mastering the art of realistic architectural 3D modeling, you will be able to visually communicate design concepts, produce high-quality visualizations, and showcase your architectural ideas with precision and accuracy. <br /><br />Join us in this hands-on course and unleash your creativity in the world of architectural visualization. <br /><br />No prior experience in 3D modeling is required. Enroll today and bring your architectural designs to life with realistic 3D models!",
+      "duration": "05 hours 15 minutes"
+    },
+    "Japanese Architecture and Structural Design": {
+      "price": 199,
+      "picture": "JapanArch.png",
+      "description": "Immerse yourself in the rich world of Japanese Architecture and Structural Design. Discover the unique principles and aesthetics that define traditional and contemporary architectural styles in Japan. <br /><br />In this course, you will delve into the following key areas:<br />- Traditional Japanese architectural elements and techniques<br />- Concepts of harmony and balance in Japanese architecture<br />- Influence of nature and spirituality on design<br />- Modern innovations in Japanese architectural practices<br />- Integration of technology and sustainability in Japanese architecture<br /><br />Through engaging lectures, case studies, and hands-on projects, you will gain a deep understanding of the cultural, historical, and environmental factors that shape Japanese architectural design. <br /><br />No prior knowledge of Japanese architecture is required. Join us on this captivating journey and unlock the secrets of Japanese architectural excellence. <br /><br />Upon completion of the course, you will have the skills and knowledge to appreciate, analyze, and create architectural designs inspired by the principles of Japanese architecture.",
+      "duration": "02 hours 30 minutes"
+    },
+    "Groundscape Architecture Design": {
+      "price": 199,
+      "picture": "GroundscapeArch.png",
+      "description": "The Groundscape Architecture Design course explores the integration of landscape and architecture, creating harmonious and functional spaces that connect people with their environment. <br /><br />In this course, you will learn:<br />- Principles of landscape architecture<br />- Site analysis and planning<br />- Sustainable design practices<br />- Materials and construction techniques<br />- Landscape design software<br /><br />Through a combination of theoretical knowledge and practical exercises, you will develop skills in conceptualizing, designing, and presenting landscape architecture projects. <br /><br />Join us to delve into the world of Groundscape Architecture Design and unleash your creativity in shaping the built environment. <br /><br />No prior architectural experience is required. Enroll today and embark on a transformative journey in landscape architecture and design!",
+      "duration": "04 hours 00 minutes"
+    },
+    "Creating Virtual Reality (VR) Apps": {
+      "price": 199,
+      "picture": "VRArch.png",
+      "description": "The Creating Virtual Reality (VR) Apps course is designed to provide you with the knowledge and skills to develop immersive virtual reality experiences. <br /><br />In this course, you will learn:<br />- The fundamentals of virtual reality technology<br />- Various VR platforms and tools<br />- Creating interactive and realistic VR environments<br />- Implementing user interactions and controls<br />- Optimizing performance for VR applications<br /><br />Throughout the course, you will work on hands-on projects and gain practical experience in developing VR apps using industry-standard tools and frameworks. <br /><br />By the end of the course, you will have the ability to create engaging and interactive virtual reality experiences for various applications, such as gaming, education, training, and simulation.<br /><br />No prior experience in virtual reality development is required. Join us and embark on a journey to unlock the world of virtual reality app creation!",
+      "duration": "03 hours 45 minutes"
+    },
+    "Housing and Cities": {
+      "price": 199,
+      "picture": "CityArch.png",
+      "description": "The Housing and Cities course provides a comprehensive understanding of housing and urban development, exploring the complex relationship between people, cities, and their built environments. <br /><br />In this course, you will delve into various topics, including:<br />- Urban planning and design<br />- Affordable housing<br />- Sustainable cities<br />- Housing policy and regulations<br />- Social and economic implications of urbanization<br /><br />Through engaging lectures, case studies, and interactive discussions, you will gain insights into the challenges and opportunities associated with housing provision, urban growth, and community development. <br /><br />By the end of the course, you will have a deeper understanding of the factors shaping our cities and the strategies employed to create inclusive, livable, and vibrant urban environments. <br /><br />Join us as we explore the fascinating world of housing and cities, and learn how to contribute to the sustainable development of our urban spaces. <br /><br />No prior knowledge in urban studies or housing is required. Enroll today and be part of shaping the future of our cities!",
+      "duration": "03 hours 45 minutes"
+    }
+  }
+}

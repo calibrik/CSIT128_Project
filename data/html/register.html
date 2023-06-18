@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Register</title>
+    <link rel="stylesheet" href="log_in.css">
+    <script src="register.js"></script>
+</head>
+<body>
+    <div class="form-reg">
+        <div class="text">
+            Sign Up
+        </div>
+
+        <form id="sign_up" onSubmit="return validateForm()">
+            
+            
+            <div class="f_field">
+                FIRST NAME <sup>*</sup>
+                <input type="text" name="fName" id="fName" size="40" placeholder="Name" required onchange="return fNameValidation()">
+                <span id="fN_fieldError" class="Error"></span>
+            </div></br>
+            
+            <div class="f_field">
+                LAST NAME <sup>*</sup>
+                <input type="text" name="lName" id="lName" size="40" placeholder="Last name" required onchange="return lNameValidation()">
+                <span id="lN_fieldError" class="Error"></span>
+            </div></br>
+            
+            <div class="f_field">
+                EMAIL <sup>*</sup>
+                <input type="text" name="email" id="email" size="40" placeholder="Ex.: your@email.com" required onchange="return emailValidation()">
+                <span id="fieldError" class="Error"></span>
+            </div></br>
+            
+            <div class="f_field">
+                PASSWORD <sup>*</sup>
+                <input type="password" name="password" id="password" size="40" placeholder="**********" required onchange="return passwordValidation()">
+                <span id="fieldError2" class="Error"></span>
+            </div></br>
+            
+            <div class="f_field">
+                CONFIRM PASSWORD <sup>*</sup>
+                <input type="password" name="passwordC" id="passwordC" size="40" placeholder="**********" required onchange="return passwordValidation()">
+                <span id="fieldError3" class="Error"></span>
+            </div>
+            
+            <div class="btn">
+                <button type="submit"><a href="/Main/onlineCourse2.html">Sign up</a></button>
+            </div>
+
+        </form><br>
+        <div class="registerL">
+            <span id="txt1">Already have an account?</span>
+            <a id="txt1L" href="login.html">Log In</a>
+        </div>
+    </div>
+    <br>
+    
+</body>
+</html>

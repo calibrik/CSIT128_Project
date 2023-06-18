@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basket</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="basket.css">
+</head>
+<body>
+    <header>
+        <a href="/Main/onlineCourse2.html" class="logo">Course Craft</a>
+        <nav class="navigation">
+            <a href="/Main/onlineCourse2.html">Categories</a>
+            <a href="/Main/onlineCourse2.html">Courses</a>
+            <a href="/Main/onlineCourse2.html">About Us</a> 
+            <a href="/Main/onlineCourse2.html">Contact</a>
+        </nav>
+        <div class="icons">
+            <a href="/profile/profile.html"><i class="fa-solid fa-user"></i></a>
+            <a href="#"><i class="fa-solid fa-heart"></i></a>
+            <a href="basketPage.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            
+        </div>
+    </header>
+</br>
+</br>
+</br>
+    <main class="content" id="toFill">
+        
+    </main>
+    <form class="total" action="/Purchase" method="post" onsubmit="return onSubmit(this)">
+        <div class="total-price" id="total">Total:</div>
+        <input type="hidden" id="totalPrice" name="total" value="" />
+        <input class="buy-button" type="submit" value="Buy">
+    </form>
+    <script defer src="basket.js"></script>
+</body>
+</html>

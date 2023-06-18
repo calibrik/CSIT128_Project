@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="listCourses.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="/Main/onlineCourse2.html" class="logo">Course Craft</a>
+        <nav class="navigation">
+            <a href="/Main/onlineCourse2.html">Categories</a>
+            <a href="/Main/onlineCourse2.html">Courses</a>
+            <a href="/Main/onlineCourse2.html">About Us</a> 
+            <a href="/Main/onlineCourse2.html">Contact</a>
+        </nav>
+        <div class="icons">
+            <a href="/profile/profile.html"><i class="fa-solid fa-user"></i></a>
+            <a href="#"><i class="fa-solid fa-heart"></i></a>
+            <a href="/baskett/basketPage.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            
+        </div>
+    </header>
+
+    <main class="content">
+        <h1 id="pageName"></h1>
+        <div id="courseList" class="course-list"></div>
+        <form id="test" onsubmit="onSubmit(this)" action="" method="get">
+            <input type="submit" class="buy-button" value="Add to basket" />
+        </form>
+        <div class="description" id="description"></div>
+    </main>
+
+    <script src="listCourses.js"></script>
+    <script>
+        loadPage("ProgrammingCourses.json");
+    </script>
+</body>
+</html>

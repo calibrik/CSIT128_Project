@@ -1,0 +1,35 @@
+{
+  "name": "Programming Courses",
+  "courses": {
+    "Machine Learning": {
+      "price": 199,
+      "picture": "AI.png",
+      "description": "This comprehensive Machine Learning course is designed to provide you with a solid foundation in the principles and techniques of Machine Learning. <br /><br />You will learn about various Machine Learning algorithms and models, including linear regression, logistic regression, decision trees, support vector machines, and neural networks. <br /><br />Throughout the course, you will explore topics such as:<br />- Data preprocessing and feature engineering<br />- Model evaluation and selection<br />- Supervised and unsupervised learning<br />- Deep learning and neural networks<br />- Natural Language Processing (NLP) and Computer Vision<br /><br />By the end of the course, you will be equipped with the knowledge and skills to apply Machine Learning algorithms to real-world problems and make data-driven decisions. <br /><br />Join us on this exciting journey into the field of Machine Learning and unlock the potential of data-driven insights!",
+      "duration": "05 hours 15 minutes"
+    },
+    "Python": {
+      "price": 300,
+      "picture": "Python.png",
+      "description": "Are you interested in learning one of the most popular programming languages in the world? Look no further! Our Python course is designed to introduce you to the fundamentals of Python programming and equip you with the skills to write efficient and powerful Python code.<br /><br />In this comprehensive course, you will start from the basics of Python syntax and gradually progress to more advanced concepts. You will learn about data types, variables, control flow structures, functions, modules, and object-oriented programming principles.<br /><br />Through a combination of theoretical explanations, hands-on coding exercises, and real-world examples, you will gain a solid foundation in Python programming. You will also explore common Python libraries and frameworks that enable you to build applications, analyze data, and automate tasks.<br /><br />Whether you are a beginner with no prior programming experience or an experienced developer looking to expand your skillset, this Python course is suitable for you. Our experienced instructors will guide you every step of the way, ensuring you have a clear understanding of each concept and providing valuable insights and tips.<br /><br />By the end of the course, you will have the confidence and proficiency to write Python programs, develop applications, and solve real-world problems. Python opens up a world of possibilities, from web development and data analysis to machine learning and artificial intelligence.<br /><br />Join our Python course today and embark on an exciting journey into the world of programming with Python!",
+      "duration": "02 hours 45 minutes"
+    },
+    "Linux Administration": {
+      "price": 550,
+      "picture": "Linux.png",
+      "description": "The Linux Administration course is designed to provide you with a comprehensive understanding of Linux operating systems and equip you with the skills to effectively manage and administer Linux-based systems. <br /><br />Throughout the course, you will cover a wide range of topics, including:<br />- Linux system architecture and components<br />- Linux shell scripting<br />- User and group management<br />- File system management<br />- Network configuration and troubleshooting<br />- Security and permissions<br /><br />By the end of this course, you will have a solid foundation in Linux administration and be capable of performing various administrative tasks in Linux environments. <br /><br />Join us on this learning journey and unlock the power of Linux administration for your career growth and professional development!",
+      "duration": "04 hours 30 minutes"
+    },
+    "C++": {
+      "price": 550,
+      "picture": "Cplusplus.png",
+      "description": "This C++ course covers the fundamentals of the C++ programming language, including object-oriented programming concepts, data types, control structures, functions, classes, and more.<br /><br />By the end of this course, you will gain a solid understanding of C++ syntax and be able to write and debug C++ programs. Whether you are a beginner or have some programming experience, this course will help you build a strong foundation in C++ development.<br /><br />Topics covered:<br />- Introduction to C++<br />- Variables and Data Types<br />- Control Structures and Loops<br />- Functions and Parameters<br />- Object-Oriented Programming<br />- Classes and Objects<br />- Inheritance and Polymorphism<br /><br />Join us and embark on your journey to become a skilled C++ developer!",
+      "duration": "05 hours 00 minutes"
+    },
+    "Introduction in Web Technology": {
+      "price": 550,
+      "picture": "WebTechno.png",
+      "description": "This introductory course provides a comprehensive overview of web technologies, covering the key concepts and fundamental components used in modern web development. <br /><br />You will learn about the building blocks of the web, including HTML, CSS, and JavaScript, and how they work together to create interactive and dynamic web pages. <br /><br />Throughout the course, you will explore topics such as:<br />- HTML structure and tags<br />- CSS styling and layout<br />- JavaScript basics and DOM manipulation<br />- Responsive design and mobile optimization<br /><br />By the end of the course, you will have a solid understanding of web technologies and be equipped with the skills to create your own web projects. <br /><br />Join us on this exciting journey into the world of web development and kickstart your career in this rapidly evolving field!",
+      "duration": "01 hours 40 minutes"
+    }
+  }
+}
