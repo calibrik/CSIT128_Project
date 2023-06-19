@@ -27,12 +27,12 @@ function fillPage() {
 }
 
 function onSubmit(form) {
-    var formData = new FormData(form);
+    /*var formData = new FormData(form);
     let text = "";
     for (let [name, value] of formData.entries()) {
         text += `${name} = ${value}\n`;
     }
-    alert(text);
+    alert(text);*/
     return true;
 }
 
@@ -41,7 +41,7 @@ function loadPage(file) {
     req.onreadystatechange = function () {
         if (req.readyState != 4 || req.status != 200) return;
         JSONdata = JSON.parse(req.responseText);
-        fillPage();
+        //fillPage();
     }
     document.getElementById("fileName").value = file;
     req.open("GET", file);
