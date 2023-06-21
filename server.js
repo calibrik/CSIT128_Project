@@ -1,3 +1,5 @@
+//TODO: Add button "add funds"
+//TODO: Multiple users support
 'use strict';
 var http = require('http');
 var port = process.env.PORT || 8080;
@@ -8,8 +10,20 @@ var fs = require("fs");
 var possibleCoursesURLs = ["/LawCourses", "/ProgrammingCourses", "/ArchitectureCourses", "/DesignCourses", "/MathCourses","/PhilosophyCourses"];
 var extensionsToType = { "html": "text/html", "css": "text/css", "js": "text/javascript", "json": "application/json", "png": "image/png", "jpg": "image/jpg" };
 
-
-
+function loadProfile(res) {
+    fs.readFile("data/html/profile.html", (err, data) => {
+        if (err) throw err;
+        let con = myMySQL.CreateConnection("128project");
+        con.query("SELECT balance FROM users WHERE id=1;", (err, result) => {
+            if (err) throw err;
+            data += `<script>document.getElementById("userBalance").innerHTML="Current balance: ${result[0].balance}";</script>`
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.write(data);
+            return res.end();
+        });
+        con.end();
+    });
+}
 
 function goTo(url, res) {
     let ext = url.split(".")[1];
@@ -205,6 +219,10 @@ http.createServer((req, res) => {
 
     if (req.url == "/") {
         goTo("/onlineCourse2.html", res);
+    }
+    else if (req.url == "/profile")
+    {
+        loadProfile(res);
     }
 
     else if (possibleCoursesURLs.includes(req.url)) {
