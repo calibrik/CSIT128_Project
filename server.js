@@ -1,12 +1,17 @@
-//TODO: Add button "add funds"
+//TODO: Protect from fools
 //TODO: Multiple users support
-'use strict';
+//TODO: Create "clear basket" button
+//TODO: Add label for messages
+'use strict'
+var timeCookieAvailable = 60;
 var http = require('http');
 var port = process.env.PORT || 8080;
+var uuid = require('uuid');
 var url = require("url");
 var myMySQL = require("./SQLModule.js");
 var formidable = require("formidable");
 var fs = require("fs");
+const exp = require('constants');
 var possibleCoursesURLs = ["/LawCourses", "/ProgrammingCourses", "/ArchitectureCourses", "/DesignCourses", "/MathCourses","/PhilosophyCourses"];
 var extensionsToType = { "html": "text/html", "css": "text/css", "js": "text/javascript", "json": "application/json", "png": "image/png", "jpg": "image/jpg" };
 
@@ -16,10 +21,50 @@ function loadProfile(res) {
         let con = myMySQL.CreateConnection("128project");
         con.query("SELECT balance FROM users WHERE id=1;", (err, result) => {
             if (err) throw err;
-            data += `<script>document.getElementById("userBalance").innerHTML="Current balance: ${result[0].balance}";</script>`
+            console.log(`Current Balance ${result[0].balance}`);
+            data += `<script>
+                        document.getElementById("userBalanceShown").innerHTML="Current balance: ${result[0].balance}";
+                        document.getElementById("userBalanceHiden").value=${result[0].balance};
+                    </script>`;
             res.writeHead(200, { "Content-Type": "text/html" });
             res.write(data);
             return res.end();
+        });
+        con.end();
+    });
+}
+
+function login(res, req) {
+    let form = new formidable.IncomingForm();
+    form.parse(req, (err, fields, files) => {
+        if (err) {
+            console.log("Form error");
+            res.statusCode = 500;
+            return res.end();
+        }
+        let con = myMySQL.CreateConnection("128project");
+        con.query(`SELECT * FROM users WHERE email="${fields.email}" && password="${fields.password}";`, (err, result) => {
+            if (err) throw err;
+            if (result.length == 0) {
+                fs.readFile("data/html/login.html", (err, data) => {
+                    if (err) throw err;
+                    data += '<script>document.getElementById("authError").innerHTML="Authorization failed! Either email or password are incorrrect";</script>';
+                    res.writeHead(200, { "Content-Type": "text/html" });
+                    res.write(data);
+                    return res.end();
+                });
+                return;
+            }
+
+            let sessionId = uuid.v4();
+            let expirationTime = Math.floor(Date.now() / 1000)+timeCookieAvailable;
+            let con = myMySQL.CreateConnection("128project");
+            con.query(`UPDATE users SET sessionId="${sessionId}" WHERE email="${fields.email}";`, (err, result) => {
+                if (err) throw err;
+                res.writeHead(302, { "Location": "/onlineCourse2.html", "Set-Cookie": `cookieName=auth; sessionId=${sessionId}; expires=${expirationTime}` });
+                return res.end();
+            });
+            con.end();
         });
         con.end();
     });
@@ -39,8 +84,9 @@ function goTo(url, res) {
     });
 }
 
-
-
+function cookieToUserId(req) {
+    console.log(req.headers.cookie);
+}
 
 function loadCoursesPages(res, req) {
     fs.readFile("data/html/Template for courses.html", (err, data) => {
@@ -179,7 +225,16 @@ function loadBasket(res) {
     });
 }
 
-
+function addFunds(res,req) {
+    let args = url.parse(req.url,true).query;
+    console.log(args);
+    let con = myMySQL.CreateConnection("128project");
+    con.query(`UPDATE users SET balance=${Number(args.userBalance) + Number(args.amount)} WHERE id=1`, (err, result) => {
+        if (err) throw err;
+        res.writeHead(302, { "Location": "/profile" });
+        return res.end();
+    });
+}
 
 
 function purchase(res,req) {
@@ -218,13 +273,16 @@ http.createServer((req, res) => {
     console.log(req.url);
 
     if (req.url == "/") {
-        goTo("/onlineCourse2.html", res);
+        goTo("/login.html", res);
     }
     else if (req.url == "/profile")
     {
         loadProfile(res);
     }
-
+    else if (req.url.indexOf("/addFunds")!=-1)
+    {
+        addFunds(res, req);
+    }
     else if (possibleCoursesURLs.includes(req.url)) {
         loadCoursesPages(res, req);
     }
@@ -232,7 +290,10 @@ http.createServer((req, res) => {
     else if (req.url == "/addToBasket" && req.method == "POST") {
         addToBasket(res, req);
     }
-
+    else if (req.url == "/auth")
+    {
+        login(res, req);
+    }
     else if (req.url == "/basket")
     {
         loadBasket(res);
@@ -243,6 +304,7 @@ http.createServer((req, res) => {
         purchase(res,req);
     }
     else {
+        cookieToUserId(req);
         goTo(req.url, res);
     }
 }).listen(port);

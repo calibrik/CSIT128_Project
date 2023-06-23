@@ -14,8 +14,9 @@
             login
         </div>
 
-        <form id="log_in" method="post" onSubmit="return validateForm()">
+        <form id="log_in" action="/auth" method="post" onSubmit="return validateForm()">
             <!-- <img id ="image" src="login_img.png"> -->
+            <span id="authError" class="Error"></span>
             <div class="f_field">
                 <label for="">Email</label>
                 <input type="text" name="email" id="email" size="40" placeholder="Ex.: your@email.com" required onchange="return emailValidation()">
@@ -24,12 +25,12 @@
             <br>
             <div class="f_field">
                 <label for="">Password</label>
-                <input type="password" name="password" id="password" size="40" placeholder="**********" required onchange="return passwordValidation()">
+                <input type="password" name="password" id="password" size="40" placeholder="**********" required>
                 <span id="fieldError2" class="Error"></span>
             </div>
             
             <div class="btn">
-                <button type="submit"> <a href="onlineCourse2.html">Login</a></button>
+                <button type="submit">Login</button>
             </div>
         </form><br>
         <div class="registerL">

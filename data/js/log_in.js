@@ -29,7 +29,7 @@ function passwordValidation() {
 
 function validateForm() {
     var isValid = true;
-    isValid &= passwordValidation();
+    //isValid &= passwordValidation();
     isValid &= emailValidation();
     return isValid? true:false;
 }

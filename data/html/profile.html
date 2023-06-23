@@ -29,14 +29,19 @@
   <main class="content">
     <h1>Profile</h1>
     <div class="profile">
-      <div class="profile-info">
-        <h2>John Doe</h2>
-        <p>Email: johndoe@example.com</p>
-        <p>Location: New York</p>
-        <p>Phone: 123-456-7890</p>
-        <p id="userBalance">Balance:</p>
-        <button class="edit-button" onclick="editProfile()">Edit Profile</button>
-      </div>
+        <div class="profile-info">
+            <h2>John Doe</h2>
+            <p>Email: johndoe@example.com</p>
+            <p>Location: New York</p>
+            <p>Phone: 123-456-7890</p>
+            <p id="userBalanceShown">Balance:</p>
+            <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+            <form action="/addFunds" method="get">
+                <input type="hidden" name="userBalance" value="" id="userBalanceHiden" />
+                <input type="text" pattern="\d+" name="amount" required placeholder="Type amount" />
+                <input type="submit" class="save-button" value="Add funds" />
+            </form>
+        </div>
     </div>
 
     <div class="account-settings">
