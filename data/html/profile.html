@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="profile-style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="register.js"></script>
+
 </head>
 <body>
     <header>
@@ -19,10 +21,10 @@
             <a href="onlineCourse2.html">Contact</a>
         </nav>
         <div class="icons">
-            <a href="listCourses.html"><i class="fa-solid fa-user"></i></a>
-            <a href="#"><i class="fa-solid fa-heart"></i></a>
+            <a href="/profile"><i class="fa-solid fa-user"></i></a>
+            <a href="onlineCourse2.html"><i class="fa-solid fa-heart"></i></a>
             <a href="/basket"><i class="fa-solid fa-cart-shopping"></i></a>
-            
+            <button id="logOut"><i id="signOut" class="fa-solid fa-sign-out"></i>Log Out</button>
         </div>
     </header>
 
@@ -30,37 +32,75 @@
     <h1>Profile</h1>
     <div class="profile">
         <div class="profile-info">
-            <h2>John Doe</h2>
-            <p>Email: johndoe@example.com</p>
-            <p>Location: New York</p>
-            <p>Phone: 123-456-7890</p>
+            <h2 id="Name_1"></h2>
+            <p id="email_1">Email: </p>
+            <p>Location: Dubai</p>
             <p id="userBalanceShown">Balance:</p>
-            <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+            
             <form action="/addFunds" method="get">
                 <input type="hidden" name="userBalance" value="" id="userBalanceHiden" />
-                <input type="text" pattern="\d+" name="amount" required placeholder="Type amount" />
-                <input type="submit" class="save-button" value="Add funds" />
+                <input type="text" id="typeBalance" pattern="\d+" name="amount" required placeholder="Type amount" />
+                <input type="submit" id="fundsButton" class="save-button" value="Add funds" />
             </form>
         </div>
     </div>
 
     <div class="account-settings">
       <h2>Account Settings</h2>
-      <form id="profile-form" onsubmit="saveProfile(event)">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="John Doe" disabled>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="johndoe@example.com" disabled>
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" value="New York" disabled>
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" value="123-456-7890" disabled>
-        <button type="submit" id="save-button" class="save-button" disabled>Save Changes</button>
-        <button type="button" id="cancel-button" class="cancel-button" onclick="cancelEdit()">Cancel</button>
+      <form id="profile-form" onsubmit="return validateFormProfile()" action="/updateProfile" method="post">
+        
+        <div class="f_field">
+            <label for="name">First Name:</label>
+            <input type="text" id="fName" name="fName" placeholder="" onchange="return fNameValidation()">
+            <span id="fN_fieldError" class="Error"></span> 
+        </div>
+
+        <div class="f_field">
+          <label for="name">Last Name:</label>
+          <input type="text" id="lName" name="lName" placeholder="" onchange="return lNameValidation()">
+          <span id="lN_fieldError" class="Error"></span>
+        </div>
+        
+        
+          <label for="email">Email:</label>
+        <div class="f_field">
+            <input type="email" id="email" name="email" placeholder="" onchange="return emailValidation()">
+            <span id="fieldError" class="Error"></span>
+        </div>
+        
+        
+          <label for="name">Current password:</label>
+        <div class="f_field">
+            <input type="password" id="old_password" name="old_password" placeholder="**********">
+            <span id="fieldErrorFatal" class="Error"></span>
+        </div>
+        
+        
+          <label for="name">New password:</label>
+        <div class="f_field">
+            <input type="password" id="password" name="password" onchange="passwordValidation(); notMatchValidation();">
+            <span id="fieldError2" class="Error"></span>
+            <span id="fieldError4" class="Error"></span>
+        </div>
+        
+        
+          <label for="name">Confirm New password:</label>
+        <div class="f_field">
+            <input type="password" id="passwordC" name="passwordC" onchange="return passwordValidation()">
+            <span id="fieldError3" class="Error"></span>
+        </div>
+        
+        <button type="submit" id="save-button" class="save-button">Save Changes</button>
+        <button type="reset" id="cancel-button" class="cancel-button" onclick="return eraseSpans()">Reset Changes</button>
       </form>
+    </div><br>
+
+    <div class="usersCourses">
+      <h2>My Courses</h2>
+      <p id="myCourses"></p>
     </div>
 
-    <script src="profile.js"></script>
+    
   </main>
 </body>
 </html>

@@ -59,6 +59,17 @@ header{
     transform: scale(1.1);
 }
 
+#logOut {
+  background-color: #F5EFE7;
+  border-style: none;
+  margin-left: 50px;
+  font-size: 1em;
+}
+
+#logOut:hover {
+  color: #4F709C;
+  transform: scale(1.1);
+}
 
 body {
   font-family: 'Poppins', Arial, sans-serif;
@@ -99,19 +110,11 @@ h1 {
   color: #4F709C;
 }
 
-.edit-button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background-color: #4F709C;
-  color: #FFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.edit-button:hover {
-  background-color: #213555;
+.profile-info input {
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #CCC;
+  width: 100%;
 }
 
 .account-settings {
@@ -125,7 +128,9 @@ h1 {
 
 .account-settings form {
   display: grid;
-  grid-template-columns: 120px 1fr;
+  margin-left: 400px;
+  margin-right: 400px;
+  grid-template-columns: 200px 1fr;
   gap: 10px;
   margin-top: 10px;
 }
@@ -136,11 +141,17 @@ h1 {
 }
 
 .account-settings input[type="text"],
+.account-settings input[type="password"],
 .account-settings input[type="email"] {
   padding: 5px;
   border-radius: 3px;
   border: 1px solid #CCC;
   width: 100%;
+}
+
+.Error{
+  color: red;
+  font-size:small;
 }
 
 .account-settings .save-button,
@@ -170,4 +181,19 @@ h1 {
 
 .account-settings .cancel-button:hover {
   background-color: #F5EFE7;
+}
+
+#fundsButton {
+  background-color: #4F709C;
+  color: #FFF;
+  transition: background-color 0.3s;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 20px;
+  margin-top: 5px;
+}
+
+#fundsButton:hover {
+  background-color: #213555;
 }

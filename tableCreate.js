@@ -4,27 +4,21 @@ let con = myMySQL.CreateConnection("128project");
 
 con.query(`CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
-  name varchar(255) DEFAULT NULL,
   email varchar(255) DEFAULT NULL,
   password VARCHAR(255),
-  age int DEFAULT NULL,
-  balance int DEFAULT NULL,
+  balance int DEFAULT 0,
   sessionId VARCHAR(255),
-  expirationTime INT,
+  f_Name VARCHAR(255),
+  l_Name VARCHAR(255),
   PRIMARY KEY (id)
 ); `, (err, result) => {
     if (err) throw err;
     console.log("Table created");
 });
-con.query('INSERT INTO users (name, email,password, age, balance) VALUES ("admin", "Ihate@claps.com","12345", 99, 5000)',
+con.query('INSERT INTO users (email,password, f_Name, l_Name) VALUES ("Ihate@claps.com","12345", "Fruck", "Yout")',
     (err, result) => {
     if (err) throw err;
     console.log("Line inserted");
-    });
-con.query('INSERT INTO users (name, email,password, age, balance) VALUES ("user1", "test@gmail.com","54321usr", 10, 5000)',
-    (err, result) => {
-        if (err) throw err;
-        console.log("Line inserted");
     });
 con.query(`
     CREATE TABLE boughtStuff (

@@ -13,7 +13,7 @@
             Sign Up
         </div>
 
-        <form id="sign_up" onSubmit="return validateForm()">
+        <form id="sign_up" action="/register" method="post" onSubmit="return validateForm()">
             
             
             <div class="f_field">
@@ -47,7 +47,8 @@
             </div>
             
             <div class="btn">
-                <button type="submit"><a href="/Main/onlineCourse2.html">Sign up</a></button>
+                <button type="submit">Sign up</button>
+                <span id="existFatal" class="Error"></span>
             </div>
 
         </form><br>

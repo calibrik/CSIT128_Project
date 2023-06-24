@@ -75,6 +75,34 @@ function validateForm() {
     isValid &= emailValidation();
     isValid &= fNameValidation();
     isValid &=lNameValidation();
-    isValid &=uNameValidation();
+    return isValid? true:false;
+}
+
+function notMatchValidation() {
+    var j = document.getElementById("old_password").value;
+    var k = document.getElementById("password").value;
+    if (j == k) {    
+        document.getElementById("fieldError4").innerHTML = "New password matches the current password";
+            return false;
+    }else{
+    document.getElementById("fieldError4").innerHTML = "";
+    }
+    return true;
+}
+
+function eraseSpans() {
+    let o = document.getElementsByClassName("Error");
+    for ( let i = 0; i <= o.length; i++) {
+        o[i].innerHTML = "";
+    }
+}
+
+function validateFormProfile() {
+    var isValid = true;
+    isValid &= passwordValidation();
+    isValid &= emailValidation();
+    isValid &= fNameValidation();
+    isValid &=lNameValidation();
+    isValid &=notMatchValidation();
     return isValid? true:false;
 }
