@@ -549,6 +549,8 @@ http.createServer((req, res) => {
     else if (req.url.split(".")[1] == "html") {
         cookieToUserId(req)
             .then((id) => {
+                if (req.url == "/register.html")
+                    res.setHeader("Set-Cookie", `${req.headers.cookie}; max-age=0; path=/`);
                 goTo(req.url, res);
             })
             .catch((err) => {

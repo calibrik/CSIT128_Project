@@ -18,7 +18,7 @@ function emailValidation() {
 
 function passwordValidation() {
     var p = document.getElementById("password").value;
-    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()-_=+;:"'|/.,><])[A-Za-z\d@$!%*?&#^()-_=+;:"'|/.,><]{8,}$/.test(p) == false) {
+    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{8,}$/.test(p) == false) {
         document.getElementById("fieldError2").innerHTML = "Your password is not strong.";
             return false;    
     }else{    
