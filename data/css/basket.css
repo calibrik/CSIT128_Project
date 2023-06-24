@@ -35,6 +35,28 @@ header{
     font-weight: 700;
     font-size: 1.8em;
 }
+.cancel-button {
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 10px;
+    background-color: #D8C4B6;
+    padding: 10px 20px;
+    color: #F5EFE7;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 500;
+    padding-left: 30px;
+    transition: all .40s ease;
+    text-align:center;
+}
+
+.cancel-button:hover {
+    background-color: #F5EFE7;
+}
 
 .navigation a{
     color: #213555;

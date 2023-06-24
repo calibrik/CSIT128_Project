@@ -105,7 +105,7 @@ function goTo(url, res) {
         return res.end();
     });
 }
-function cookieToUserId(req) {
+function cookieToUserId(res,req) {
     return new Promise((resolve, reject) => {
         let sessionId = req.headers.cookie;
         console.log(sessionId);
@@ -179,18 +179,15 @@ function loadCoursesPages(res, req,id) {
         });
     });
 }
-function clearBasket(res, req, id) {
+function clearBasket(res, id) {
     let con = myMySQL.CreateConnection("128project");
-    emptyBasket(con, id);
-    con.end();
-    res.writeHead(302, { "Location": "/basket" });
-    return res.end();
-}
-function emptyBasket(con, id) {
     con.query(`DELETE FROM basket WHERE user_id=${id}`, (err, result) => {
         if (err) throw err;
         console.log("Wiped from basket");
+        res.writeHead(302, { "Location": "/basket" });
+        return res.end();
     });
+    con.end(); 
 }
 function addToBasket(res, req,id) {
     let form = new formidable.IncomingForm();
@@ -287,7 +284,10 @@ function purchase(res,req,id) {
         if (err) throw err;
         console.log("Stuff bought");
     });
-    emptyBasket(con, id);
+    con.query(`DELETE FROM basket WHERE user_id=${id}`, (err, result) => {
+        if (err) throw err;
+        console.log("Wiped from basket");
+    });
     con.end();
     let form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files) => {
@@ -341,9 +341,9 @@ function updateUserProfileInfo(res, req, id) {
                     })
                     .catch((err) => {
                         throw err;
-                    })
-            } else {
-
+                    });
+            }
+             else {
                 con.query(`UPDATE users SET f_Name = "${fields.fName}", l_Name = "${fields.lName}", email = "${fields.email}", password = "${fields.password}" WHERE id=${id};`, (err, result) => {
                     if (err) throw err;
                     res.writeHead(302, { "Location": "/profile" });
@@ -394,7 +394,7 @@ http.createServer((req, res) => {
     console.log(req.url);
 
     if (req.url == "/") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 goTo("/onlineCourse2.html", res);
             })
@@ -411,7 +411,7 @@ http.createServer((req, res) => {
         register(res, req);
     }
     else if (req.url == "/login.html") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 res.writeHead(302, { "Location": "/onlineCourse2.html" });
                 return res.end();
@@ -426,7 +426,7 @@ http.createServer((req, res) => {
     }
     else if (req.url == "/logout")
     {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 logout(req,res, id);
             })
@@ -439,7 +439,7 @@ http.createServer((req, res) => {
             });
     }
     else if (req.url == "/profile") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 loadProfile(res, id);
             })
@@ -452,7 +452,7 @@ http.createServer((req, res) => {
             });
     }
     else if (req.url.indexOf("/addFunds?") != -1) {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 addFunds(res, req, id);
             })
@@ -465,7 +465,7 @@ http.createServer((req, res) => {
             });
     }
     else if (possibleCoursesURLs.includes(req.url)) {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 loadCoursesPages(res, req, id);
             })
@@ -478,7 +478,7 @@ http.createServer((req, res) => {
             });
     }
     else if (req.url == "/updateProfile" && req.method == "POST") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 updateUserProfileInfo(res, req, id);
             })
@@ -491,9 +491,9 @@ http.createServer((req, res) => {
             });
     }
     else if (req.url == "/clearBasket") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
-                clearBasket(res, req, id);
+                clearBasket(res, id);
             })
             .catch((err) => {
                 if (err == "NoCookie") {
@@ -504,7 +504,7 @@ http.createServer((req, res) => {
             });
     }
     else if (req.url == "/addToBasket" && req.method == "POST") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 addToBasket(res, req, id);
             })
@@ -520,7 +520,7 @@ http.createServer((req, res) => {
         login(res, req);
     }
     else if (req.url == "/basket") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 loadBasket(res, id);
             })
@@ -534,7 +534,7 @@ http.createServer((req, res) => {
     }
 
     else if (req.method == "POST" && req.url == "/Purchase") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 purchase(res, req, id);
             })
@@ -547,7 +547,7 @@ http.createServer((req, res) => {
             });
     }
     else if (req.url.split(".")[1] == "html") {
-        cookieToUserId(req)
+        cookieToUserId(res,req)
             .then((id) => {
                 if (req.url == "/register.html")
                     res.setHeader("Set-Cookie", `${req.headers.cookie}; max-age=0; path=/`);
