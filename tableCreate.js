@@ -27,7 +27,7 @@ con.query(`
     picture VARCHAR(255),
     duration VARCHAR(255),
     price INT,
-    PRIMARY KEY (courseName),
+    PRIMARY KEY (user_id,courseName),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );`, (err, result) => {
     if (err) throw err;
@@ -40,7 +40,7 @@ con.query(`
     picture VARCHAR(255),
     duration VARCHAR(255),
     price INT,
-    PRIMARY KEY (courseName),
+    PRIMARY KEY (user_id,courseName),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );`, (err, result) => {
     if (err) throw err;

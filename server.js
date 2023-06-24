@@ -1,8 +1,8 @@
 //TODO: Protect from fools
-//TODO: Create "clear basket" button
+
 
 'use strict'
-var timeCookieAvailable = 10;
+var timeCookieAvailable = 600;
 var http = require('http');
 var port = process.env.PORT || 8080;
 var uuid = require('uuid');
@@ -29,15 +29,13 @@ function loadProfilePage(id) {
                         document.getElementById("lName").placeholder="${result[0].l_Name}";
                         document.getElementById("email").placeholder="${result[0].email}";
                     </script>`;
-                //resolve(data);
             });
             con.query(`SELECT * FROM boughtstuff where user_id=${id};`, (err, results) => {
                 if (err) throw err;
                 let text = "";
                 for (let i = 0; i < results.length; i++) {
-                    text += `${results[i].courseName} - ${results[i].duration} - ${results[i].price}<br>`;
+                    text += `${results[i].courseName} - ${results[i].price}AED (${results[i].duration})<br /><br />`;
                 }
-                //console.log(text);
                 data += `<script>
                             document.getElementById("myCourses").innerHTML = "${text}";
                         </script>`
@@ -49,7 +47,16 @@ function loadProfilePage(id) {
 }
 
 
-
+function logout(req,res, id) {
+    let con = myMySQL.CreateConnection("128project");
+    con.query(`UPDATE users SET sessionId=NULL WHERE id=${id}`, (err, data) => {
+        if (err) throw err;
+        res.setHeader("Set-Cookie", `${req.headers.cookie}; max-age=0; path=/`);
+        res.writeHead(302, { "Location": "/onlineCourse.html" });
+        return res.end();
+    });
+    con.end();
+}
 function login(res, req) {
     let form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files) => {
@@ -117,6 +124,7 @@ function cookieToUserId(req) {
                 return;
             }
             if (result.length == 0) {
+                res.setHeader("Set-Cookie", `${req.headers.cookie}; max-age=0; path=/`);
                 reject("NoCookie");
                 return;
             }
@@ -133,7 +141,7 @@ function loadCoursesPages(res, req,id) {
         }
         data = data.toString();
         let con = myMySQL.CreateConnection("128project");
-        con.query(`SELECT * FROM boughtstuff WHERE user_id=${id}`, (err, result) => {
+        con.query(`SELECT courseName FROM boughtstuff WHERE user_id=${id}`, (err, result) => {
             if (err) throw err;
             fs.readFile(`data/json/${req.url.slice(1)}.json`, (err, JSONdata) => {
                 if (err) throw err;
@@ -412,6 +420,20 @@ http.createServer((req, res) => {
                 if (err == "NoCookie") {
                     goTo(req.url, res);
                     return;
+                }
+                throw err;
+            });
+    }
+    else if (req.url == "/logout")
+    {
+        cookieToUserId(req)
+            .then((id) => {
+                logout(req,res, id);
+            })
+            .catch((err) => {
+                if (err == "NoCookie") {
+                    res.writeHead(302, { "Location": "/onlineCourse.html" });
+                    return res.end();
                 }
                 throw err;
             });

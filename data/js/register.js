@@ -27,10 +27,7 @@ function passwordValidation() {
             
 
     var p1 = document.getElementById("passwordC").value;
-    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()-_=+;:"'|/.,><])[A-Za-z\d@$!%*?&#^()-_=+;:"'|/.,><]{8,}$/.test(p1) == false) {
-        document.getElementById("fieldError3").innerHTML = "Your password is not strong.";
-            return false;    
-    }else if (p !== p1) {    
+    if (p != p1) {    
         document.getElementById("fieldError3").innerHTML = "Passwords do not match";
             return false;
     }else{
