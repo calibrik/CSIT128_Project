@@ -1,6 +1,3 @@
-
-
-
 'use strict'
 var timeCookieAvailable = 3600;
 var http = require('http');
@@ -555,7 +552,6 @@ http.createServer((req, res) => {
                 throw err;
             });
     }
-
     else if (req.method == "POST" && req.url == "/Purchase") {
         cookieToUserId(res,req)
             .then((id) => {

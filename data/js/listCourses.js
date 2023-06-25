@@ -8,31 +8,13 @@ function fillDescription(key) {
         <p>${JSONdata.courses[key].description}</p>`;
 }
 
-function fillPage() {
-    document.getElementById("pageName").innerHTML = JSONdata.name;
-    let text = "";
-    Object.keys(JSONdata.courses).forEach(key => {
-        text += `
-            <div class="course-card">
-                <img src="${JSONdata.courses[key].picture}" alt="Image" />
-                <h3>${key}</h3>
-                <p>${JSONdata.courses[key].price} AED</p>
-                <h6>${JSONdata.courses[key].duration}<h6>
-                </br>
-                <a href="#description" onclick="fillDescription('${key}')">More info</a>
-                <input type="checkbox" name="${key}" />
-            </div>`;
-    });
-    document.getElementById("courseList").innerHTML = text;
-}
-
 function onSubmit(form) {
-    /*var formData = new FormData(form);
-    let text = "";
-    for (let [name, value] of formData.entries()) {
-        text += `${name} = ${value}\n`;
+    var formData = new FormData(form);
+    var values = Array.from(formData.values()); 
+    if (values.length === 1) {
+        alert("You should select something before adding");
+        return false;
     }
-    alert(text);*/
     return true;
 }
 
