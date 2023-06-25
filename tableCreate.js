@@ -15,7 +15,7 @@ con.query(`CREATE TABLE users (
     if (err) throw err;
     console.log("Table created");
 });
-con.query('INSERT INTO users (email,password, f_Name, l_Name) VALUES ("Ihate@claps.com","12345", "Fruck", "Yout")',
+con.query('INSERT INTO users (email,password, f_Name, l_Name) VALUES ("Ihate@claps.com","12345", "Bur", "Nedhands")',
     (err, result) => {
     if (err) throw err;
     console.log("Line inserted");

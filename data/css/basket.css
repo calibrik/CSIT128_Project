@@ -36,26 +36,40 @@ header{
     font-size: 1.8em;
 }
 .cancel-button {
-    padding: 10px 10px;
-    border: none;
+   
     cursor: pointer;
-    font-size: 16px;
     font-weight: bold;
     transition: background-color 0.3s ease-in-out;
     margin-top: 10px;
     background-color: #D8C4B6;
-    padding: 10px 20px;
+    padding: 10px 10px;
     color: #F5EFE7;
     text-decoration: none;
+    border-style: none;
     font-size: 1.1em;
     font-weight: 500;
     padding-left: 30px;
-    transition: all .40s ease;
     text-align:center;
 }
 
-.cancel-button:hover {
+#basketClear{
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #D8C4B6;
+  color:#fff;
+  border: 1px solid #D8C4B6;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+    
+}
+
+#basketClear:hover{
     background-color: #F5EFE7;
+    transition: background-color 0.3s ease-in-out;
+    border-color: #F5EFE7;
+    transition: border-color 0.1s ease-in-out;
 }
 
 .navigation a{

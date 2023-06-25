@@ -1,8 +1,8 @@
-//TODO: Protect from fools
+
 
 
 'use strict'
-var timeCookieAvailable = 600;
+var timeCookieAvailable = 3600;
 var http = require('http');
 var port = process.env.PORT || 8080;
 var uuid = require('uuid');
@@ -342,15 +342,38 @@ function updateUserProfileInfo(res, req, id) {
                     .catch((err) => {
                         throw err;
                     });
+                return;
             }
-             else {
+            let con = myMySQL.CreateConnection("128project");
+            con.query(`SELECT email FROM users WHERE id!=${id} AND email="${fields.email}"`, (err, result) => {
+                if (err) throw err;
+                if (result.length != 0) {
+                    console.log(result);
+                    loadProfilePage(id)
+                        .then((data) => {
+                            data += `<script>
+                                 document.getElementById("emailFieldError").innerHTML="This email is already registered";
+                                </script>`;
+                            res.writeHead(200, { "Content-Type": "text/html" });
+                            res.write(data);
+                            return res.end();
+                        })
+                        .catch((err) => {
+                            throw err;
+                        });
+                    return;
+                }
+                let con = myMySQL.CreateConnection("128project");
                 con.query(`UPDATE users SET f_Name = "${fields.fName}", l_Name = "${fields.lName}", email = "${fields.email}", password = "${fields.password}" WHERE id=${id};`, (err, result) => {
                     if (err) throw err;
                     res.writeHead(302, { "Location": "/profile" });
                     return res.end();
                 });
-            }
+                con.end();
+            });
+            con.end();
         });
+        con.end()
     });
 }
 function register(res, req) {
