@@ -76,7 +76,6 @@ function validateForm() {
     isValid &= emailValidation();
     isValid &= fNameValidation();
     isValid &= lNameValidation();
-    alert("stop");
     return isValid? true:false;
 }
 

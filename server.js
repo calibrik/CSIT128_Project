@@ -1,6 +1,7 @@
 'use strict'
 var timeCookieAvailable = 3600;
 var http = require('http');
+var bcrypt = require('bcrypt');
 var port = process.env.PORT || 8080;
 var uuid = require('uuid');
 var url = require("url");
@@ -42,6 +43,18 @@ function loadProfilePage(id) {
         });
     });
 }
+function getHash(pswd) {
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(pswd, 10, (err, hash) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            console.log(hash);
+            resolve(hash);
+        });
+    });
+}
 
 
 function logout(req,res, id) {
@@ -63,7 +76,7 @@ function login(res, req) {
             return res.end();
         }
         let con = myMySQL.CreateConnection("128project");
-        con.query(`SELECT * FROM users WHERE email="${fields.email}" && password="${fields.password}";`, (err, result) => {
+        con.query(`SELECT password FROM users WHERE email="${fields.email}";`, (err, result) => {
             if (err) throw err;
             if (result.length == 0) {
                 fs.readFile("data/html/login.html", (err, data) => {
@@ -75,16 +88,28 @@ function login(res, req) {
                 });
                 return;
             }
-
-            let sessionId = uuid.v4();
-            let con = myMySQL.CreateConnection("128project");
-            con.query(`UPDATE users SET sessionId="${sessionId}" WHERE email="${fields.email}";`, (err, result) => {
+            bcrypt.compare(fields.password, result[0].password, (err, isMatch) => {
                 if (err) throw err;
-                res.setHeader("Set-Cookie", `${sessionId}; max-age=${timeCookieAvailable}; path=/`);
-                res.writeHead(302, { "Location": "/onlineCourse2.html" });
-                return res.end();
+                if (!isMatch) {
+                    fs.readFile("data/html/login.html", (err, data) => {
+                        if (err) throw err;
+                        data += '<script>document.getElementById("authError").innerHTML="Authorization failed! Either email or password are incorrrect";</script>';
+                        res.writeHead(200, { "Content-Type": "text/html" });
+                        res.write(data);
+                        return res.end();
+                    });
+                    return;
+                }
+                let sessionId = uuid.v4();
+                let con = myMySQL.CreateConnection("128project");
+                con.query(`UPDATE users SET sessionId="${sessionId}" WHERE email="${fields.email}";`, (err, result) => {
+                    if (err) throw err;
+                    res.setHeader("Set-Cookie", `${sessionId}; max-age=${timeCookieAvailable}; path=/`);
+                    res.writeHead(302, { "Location": "/onlineCourse2.html" });
+                    return res.end();
+                });
+                con.end();
             });
-            con.end();
         });
         con.end();
     });
@@ -326,7 +351,8 @@ function updateUserProfileInfo(res, req, id) {
         let con = myMySQL.CreateConnection("128project");
         con.query(`SELECT password FROM users WHERE id=${id};`, (err, result) => {
             if (err) throw err;
-            if (fields.old_password != result[0].password) {
+            bcrypt.compare(fields.old_password, result[0].password, (err, isMatch) => { 
+            if (!isMatch) {
                 loadProfilePage(id)
                     .then((data) => {
                         data += `<script>
@@ -360,15 +386,20 @@ function updateUserProfileInfo(res, req, id) {
                         });
                     return;
                 }
-                let con = myMySQL.CreateConnection("128project");
-                con.query(`UPDATE users SET f_Name = "${fields.fName}", l_Name = "${fields.lName}", email = "${fields.email}", password = "${fields.password}" WHERE id=${id};`, (err, result) => {
-                    if (err) throw err;
-                    res.writeHead(302, { "Location": "/profile" });
-                    return res.end();
-                });
-                con.end();
+                getHash(fields.password)
+                    .then((hash) => {
+                        let con = myMySQL.CreateConnection("128project");
+                        con.query(`UPDATE users SET f_Name = "${fields.fName}", l_Name = "${fields.lName}", email = "${fields.email}", password = "${hash}" WHERE id=${id};`, (err, result) => {
+                            if (err) throw err;
+                            res.writeHead(302, { "Location": "/profile" });
+                            return res.end();
+                        });
+                        con.end();
+                    })
+                    .catch((err) => { throw err; });
             });
             con.end();
+            });
         });
         con.end()
     });
@@ -398,13 +429,17 @@ function register(res, req) {
                 return;
             }
 
-            let con = myMySQL.CreateConnection("128project");
-            con.query(`INSERT INTO users (email, password, f_Name, l_Name) VALUES ("${fields.email}", "${fields.password}", "${fields.fName}", "${fields.lName}");`, (err, result) => {
-                if (err) throw err;
-                res.writeHead(302, { "Location": "/login.html" });
-                return res.end();
-            });
-            con.end();
+            getHash(fields.password)
+                .then((hash) => {
+                    let con = myMySQL.CreateConnection("128project");
+                    con.query(`INSERT INTO users (email, password, f_Name, l_Name) VALUES ("${fields.email}", "${hash}", "${fields.fName}", "${fields.lName}");`, (err, result) => {
+                        if (err) throw err;
+                        res.writeHead(302, { "Location": "/login.html" });
+                        return res.end();
+                    });
+                    con.end();
+                })
+                .catch((err) => { throw err;})
         });
         con.end();
     });
