@@ -1,14 +1,15 @@
 function emailValidation() {
-    var em = document.getElementById("email").value; 
+    var em = document.getElementById("email").value;
+    console.log(em);
     if (em == null || em.trim() == ""){
-    document.getElementById("fieldError").innerHTML = "Fill out the email"; 
+    document.getElementById("emailFieldError").innerHTML = "Fill out the email"; 
     return false;
     }else if
         (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(em) == false) {
         document.getElementById("fieldError").innerHTML = "Invalid email format.";
             return false;  
     }else{
-        document.getElementById("fieldError").innerHTML = "";
+        document.getElementById("emailFieldError").innerHTML = "";
         document.getElementById("email").value = em.trim();
     
     }
@@ -27,6 +28,7 @@ function passwordValidation() {
             
 
     var p1 = document.getElementById("passwordC").value;
+    console.log(`${p} ${p1}`);
     if (p != p1) {    
         document.getElementById("fieldError3").innerHTML = "Passwords do not match";
             return false;
@@ -38,21 +40,23 @@ function passwordValidation() {
 
 function fNameValidation() {
     var testfName = document.getElementById("fName").value;
-     if (testfName == null || testfName.trim() == ""){
-    document.getElementById("fN_fieldError").innerHTML = "Name cannot be blank"; 
-    return false;
-     }else if (/^[A-Z][a-z]{1,20}$/.test(testfName) == false) {
+    console.log(testfName);
+    if (testfName == null || testfName.trim() == "") {
+        document.getElementById("fN_fieldError").innerHTML = "Name cannot be blank";
+        return false;
+    } else if (/^[A-Z][a-z]{1,20}$/.test(testfName) == false) {
         document.getElementById("fN_fieldError").innerHTML = "First name must start with a capital letter and contain 2-20 letters only.";
-    }else{
+    } else {
         document.getElementById("fN_fieldError").innerHTML = "";
         document.getElementById("fName").value = testfName.trim();
-    
+
     }
-    return true; 
+    return true;
 }
 
 function lNameValidation() {
     var testlName = document.getElementById("lName").value;
+    console.log(testlName);
     if (testlName == null || testlName.trim() == ""){
     document.getElementById("lN_fieldError").innerHTML = "Last name cannot be blank"; 
     return false;
@@ -71,13 +75,15 @@ function validateForm() {
     isValid &= passwordValidation();
     isValid &= emailValidation();
     isValid &= fNameValidation();
-    isValid &=lNameValidation();
+    isValid &= lNameValidation();
+    alert("stop");
     return isValid? true:false;
 }
 
 function notMatchValidation() {
     var j = document.getElementById("old_password").value;
     var k = document.getElementById("password").value;
+    console.log(`${j} ${k}`);
     if (j == k) {    
         document.getElementById("fieldError4").innerHTML = "New password matches the current password";
             return false;
@@ -95,11 +101,13 @@ function eraseSpans() {
 }
 
 function validateFormProfile() {
-    var isValid = true;
+    var isValid = true; 
     isValid &= passwordValidation();
     isValid &= emailValidation();
     isValid &= fNameValidation();
     isValid &=lNameValidation();
-    isValid &=notMatchValidation();
+    isValid &= notMatchValidation();
     return isValid? true:false;
+    /*console.log(passwordValidation() && emailValidation() && fNameValidation() && lNameValidation() && notMatchValidation());
+    return false;*/
 }
