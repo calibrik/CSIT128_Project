@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "formidable": "^3.5.2",
+    "mysql2": "^3.14.0",
+    "uuid": "^11.1.0"
+  }
+}
