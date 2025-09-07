@@ -1,0 +1,32 @@
+name: CSIT128-Project
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
+    networks:
+      - csit128-net
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - "3306:3307"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - csit128-net
+
+networks:
+  csit128-net:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local

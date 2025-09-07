@@ -2,12 +2,13 @@
 var timeCookieAvailable = 3600;
 var http = require('http');
 var bcrypt = require('bcrypt');
-var port = process.env.PORT || 8080;
+var port = 80;
 var uuid = require('uuid');
 var url = require("url");
-var myMySQL = require("./SQLModule.js");
+var mySQL = require("./SQLModule.js");
 var formidable = require("formidable");
 var fs = require("fs");
+var prepareDB = require("./PrepareDB.js");
 var possibleCoursesURLs = ["/LawCourses", "/ProgrammingCourses", "/ArchitectureCourses", "/DesignCourses", "/MathCourses","/PhilosophyCourses"];
 var extensionsToType = { "html": "text/html", "css": "text/css", "js": "text/javascript", "json": "application/json", "png": "image/png", "jpg": "image/jpg" };
 
@@ -15,7 +16,7 @@ function loadProfilePage(id) {
     return new Promise((resolve, reject) => {
         fs.readFile("data/html/profile.html", (err, data) => {
             if (err) reject(err);
-            let con = myMySQL.CreateConnection("128project");
+            let con = mySQL.CreateConnection("128project");
             con.query(`SELECT * FROM users WHERE id=${id};`, (err, result) => {
                 if (err) reject(err);
                 data += `<script>
@@ -58,7 +59,7 @@ function getHash(pswd) {
 
 
 function logout(req,res, id) {
-    let con = myMySQL.CreateConnection("128project");
+    let con = mySQL.CreateConnection("128project");
     con.query(`UPDATE users SET sessionId=NULL WHERE id=${id}`, (err, data) => {
         if (err) throw err;
         res.setHeader("Set-Cookie", `${req.headers.cookie}; max-age=0; path=/`);
@@ -75,7 +76,7 @@ function login(res, req) {
             res.statusCode = 500;
             return res.end();
         }
-        let con = myMySQL.CreateConnection("128project");
+        let con = mySQL.CreateConnection("128project");
         con.query(`SELECT password FROM users WHERE email="${fields.email}";`, (err, result) => {
             if (err) throw err;
             if (result.length == 0) {
@@ -88,7 +89,7 @@ function login(res, req) {
                 });
                 return;
             }
-            bcrypt.compare(fields.password, result[0].password, (err, isMatch) => {
+            bcrypt.compare(fields.password[0], result[0].password, (err, isMatch) => {
                 if (err) throw err;
                 if (!isMatch) {
                     fs.readFile("data/html/login.html", (err, data) => {
@@ -101,7 +102,7 @@ function login(res, req) {
                     return;
                 }
                 let sessionId = uuid.v4();
-                let con = myMySQL.CreateConnection("128project");
+                let con = mySQL.CreateConnection("128project");
                 con.query(`UPDATE users SET sessionId="${sessionId}" WHERE email="${fields.email}";`, (err, result) => {
                     if (err) throw err;
                     res.setHeader("Set-Cookie", `${sessionId}; max-age=${timeCookieAvailable}; path=/`);
@@ -139,7 +140,7 @@ function cookieToUserId(res,req) {
             reject("NoCookie");
             return;
         }
-        let con = myMySQL.CreateConnection("128project");
+        let con = mySQL.CreateConnection("128project");
         con.query(`SELECT id FROM users WHERE sessionId="${sessionId}"`, (err, result) => {
             if (err) {
                 reject(err);
@@ -162,7 +163,7 @@ function loadCoursesPages(res, req,id) {
             return res.end("404 NOT FOUND");
         }
         data = data.toString();
-        let con = myMySQL.CreateConnection("128project");
+        let con = mySQL.CreateConnection("128project");
         con.query(`SELECT courseName FROM boughtstuff WHERE user_id=${id}`, (err, result) => {
             if (err) throw err;
             fs.readFile(`data/json/${req.url.slice(1)}.json`, (err, JSONdata) => {
@@ -202,7 +203,7 @@ function loadCoursesPages(res, req,id) {
     });
 }
 function clearBasket(res, id) {
-    let con = myMySQL.CreateConnection("128project");
+    let con = mySQL.CreateConnection("128project");
     con.query(`DELETE FROM basket WHERE user_id=${id}`, (err, result) => {
         if (err) throw err;
         console.log("Wiped from basket");
@@ -226,7 +227,7 @@ function addToBasket(res, req,id) {
                 return res.end();
             }
             let listCourses = JSON.parse(data).courses;
-            let con = myMySQL.CreateConnection("128project");
+            let con = mySQL.CreateConnection("128project");
             let keys = Object.keys(fields);
             keys.splice(keys.indexOf("filename"));
             for (let i = 0; i < keys.length; ++i) {
@@ -260,7 +261,7 @@ function loadBasket(res,id) {
         }
 
         data = data.toString();
-        let con = myMySQL.CreateConnection("128project");
+        let con = mySQL.CreateConnection("128project");
         con.query(`SELECT * FROM basket WHERE user_id=${id}`, (err, results) => {
             if (err) throw err;
             let total = 0;
@@ -293,7 +294,7 @@ function loadBasket(res,id) {
 }
 function addFunds(res,req,id) {
     let args = url.parse(req.url,true).query;
-    let con = myMySQL.CreateConnection("128project");
+    let con = mySQL.CreateConnection("128project");
     con.query(`UPDATE users SET balance=${Number(args.userBalance) + Number(args.amount)} WHERE id=${id}`, (err, result) => {
         if (err) throw err;
         res.writeHead(302, { "Location": "/profile" });
@@ -301,7 +302,7 @@ function addFunds(res,req,id) {
     });
 }
 function purchase(res,req,id) {
-    let con = myMySQL.CreateConnection("128project");
+    let con = mySQL.CreateConnection("128project");
     con.query(`INSERT IGNORE INTO boughtstuff SELECT * FROM basket WHERE user_id=${id}`, (err, result) => {
         if (err) throw err;
         console.log("Stuff bought");
@@ -318,7 +319,7 @@ function purchase(res,req,id) {
             res.statusCode = 500;
             return res.end();
         }
-        let con = myMySQL.CreateConnection("128project");
+        let con = mySQL.CreateConnection("128project");
         con.query(`UPDATE users SET balance=${fields.userBalance - fields.total} WHERE id=${id};`, (err, result) => {
             if (err) throw err;
             console.log(`Current Balance ${fields.userBalance - fields.total}`);
@@ -348,7 +349,7 @@ function updateUserProfileInfo(res, req, id) {
             res.statusCode = 500;
             return res.end();
         }
-        let con = myMySQL.CreateConnection("128project");
+        let con = mySQL.CreateConnection("128project");
         con.query(`SELECT password FROM users WHERE id=${id};`, (err, result) => {
             if (err) throw err;
             bcrypt.compare(fields.old_password, result[0].password, (err, isMatch) => { 
@@ -367,7 +368,7 @@ function updateUserProfileInfo(res, req, id) {
                     });
                 return;
             }
-            let con = myMySQL.CreateConnection("128project");
+            let con = mySQL.CreateConnection("128project");
             con.query(`SELECT email FROM users WHERE id!=${id} AND email="${fields.email}"`, (err, result) => {
                 if (err) throw err;
                 if (result.length != 0) {
@@ -388,7 +389,7 @@ function updateUserProfileInfo(res, req, id) {
                 }
                 getHash(fields.password)
                     .then((hash) => {
-                        let con = myMySQL.CreateConnection("128project");
+                        let con = mySQL.CreateConnection("128project");
                         con.query(`UPDATE users SET f_Name = "${fields.fName}", l_Name = "${fields.lName}", email = "${fields.email}", password = "${hash}" WHERE id=${id};`, (err, result) => {
                             if (err) throw err;
                             res.writeHead(302, { "Location": "/profile" });
@@ -412,7 +413,7 @@ function register(res, req) {
             res.statusCode = 500;
             return res.end();
         }
-        let con = myMySQL.CreateConnection("128project");
+        let con = mySQL.CreateConnection("128project");
         con.query(`SELECT email FROM users WHERE email= "${fields.email}";`, (err, result) => {
             if (err) throw err;
             if (result.length != 0) {
@@ -429,9 +430,9 @@ function register(res, req) {
                 return;
             }
 
-            getHash(fields.password)
+            getHash(fields.password[0])
                 .then((hash) => {
-                    let con = myMySQL.CreateConnection("128project");
+                    let con = mySQL.CreateConnection("128project");
                     con.query(`INSERT INTO users (email, password, f_Name, l_Name) VALUES ("${fields.email}", "${hash}", "${fields.fName}", "${fields.lName}");`, (err, result) => {
                         if (err) throw err;
                         res.writeHead(302, { "Location": "/login.html" });
@@ -444,6 +445,8 @@ function register(res, req) {
         con.end();
     });
 }
+
+prepareDB(mySQL);
 
 http.createServer((req, res) => {
     console.log(req.url);
