@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . .
 RUN npm install
 EXPOSE 80
-ENTRYPOINT ["node", "server.js"]
+CMD node PrepareDB.js && node server.js

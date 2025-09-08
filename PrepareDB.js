@@ -1,26 +1,17 @@
-async function prepareDB(mySQL) {
-    const dbExists = await new Promise((resolve, reject) => {
-        let con = mySQL.CreateConnection();
-        con.query("SHOW DATABASES LIKE '128project'", (err, result) => {
-            console.log(result);
-            if (err) return reject(err);
-            resolve(result.length > 0);
-        });
-        con.end();
-    });
-
-    if (dbExists) {
-        console.log("Database already exists. Skipping preparation.");
+var mySQL = require("./SQLModule.js");
+async function prepareDB() {
+    console.log("Preparing db...");
+    try {
+        await mySQL.CreateDB("128project");
+    }
+    catch (e) {
+        console.log("Db already exists");
         return;
     }
 
-    await mySQL.CreateDB("128project");
-
-    
+    let con = mySQL.CreateConnection("128project");
     const queryAsync = (sql) => new Promise((resolve, reject) => {
-        let con = mySQL.CreateConnection("128project");
-        con.query(sql, (err, result) => {  
-            con.end();
+        con.query(sql, (err, result) => {
             if (err) return reject(err);
             resolve(result);
         });
@@ -38,7 +29,7 @@ async function prepareDB(mySQL) {
     console.log("Table users created");
 
     await queryAsync(`
-        CREATE TABLE boughtStuff (
+        CREATE TABLE boughtstuff (
             user_id INT,
             courseName VARCHAR(255),
             picture VARCHAR(255),
@@ -48,7 +39,7 @@ async function prepareDB(mySQL) {
             FOREIGN KEY (user_id) REFERENCES users(id)
         );
     `);
-    console.log("Table boughtStuff created");
+    console.log("Table boughtstuff created");
 
     await queryAsync(`
         CREATE TABLE basket (
@@ -62,6 +53,7 @@ async function prepareDB(mySQL) {
         );
     `);
     console.log("Table basket created");
+    con.end();
 }
 
-module.exports = prepareDB;
+prepareDB();

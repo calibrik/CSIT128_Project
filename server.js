@@ -8,7 +8,7 @@ var url = require("url");
 var mySQL = require("./SQLModule.js");
 var formidable = require("formidable");
 var fs = require("fs");
-var prepareDB = require("./PrepareDB.js");
+// var prepareDB = require("./PrepareDB.js");
 var possibleCoursesURLs = ["/LawCourses", "/ProgrammingCourses", "/ArchitectureCourses", "/DesignCourses", "/MathCourses","/PhilosophyCourses"];
 var extensionsToType = { "html": "text/html", "css": "text/css", "js": "text/javascript", "json": "application/json", "png": "image/png", "jpg": "image/jpg" };
 
@@ -446,7 +446,7 @@ function register(res, req) {
     });
 }
 
-prepareDB(mySQL);
+// prepareDB(mySQL);
 
 http.createServer((req, res) => {
     console.log(req.url);

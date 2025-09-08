@@ -1,3 +1,5 @@
+_Code here is straight dumpster fire ngl, but at least now you can launch the server and see it in action without installing node, mysql and other stuff you might need. Just install docker and enjoy._
+
 # Build using Docker
 
 1. Install Docker
